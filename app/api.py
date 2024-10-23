@@ -25,4 +25,4 @@ if __name__ == "__main__":
     import uvicorn
 
     scraper.start()
-    uvicorn.run(api, port=8080)
+    uvicorn.run(api, port=80)
