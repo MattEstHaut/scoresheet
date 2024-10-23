@@ -9,4 +9,4 @@ ENV PYTHONUNBUFFERED=1
 
 EXPOSE 80
 
-CMD ["python3", "api.py"]
+CMD ["fastapi", "run", "api.py", "--port", "80"]
