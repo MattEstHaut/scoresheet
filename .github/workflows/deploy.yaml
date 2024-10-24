@@ -64,6 +64,5 @@ jobs:
           echo "name=${RELEASE_NAME}" >> $GITHUB_OUTPUT
 
       - name: Upgrade chart
-        working-directory: charts/scoresheet
         run: |
-          helm upgrade --install ${{ steps.release_name.outputs.name }} ./ -n kube-system
+          helm upgrade --install ${{ steps.release_name.outputs.name }} ./chart -n kube-system
