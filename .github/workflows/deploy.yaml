@@ -56,6 +56,12 @@ jobs:
           mkdir ~/.kube
           echo "${{ secrets.KUBECONFIG }}" | base64 --decode > ~/.kube/config
 
+      - name: Set Helm release name
+        id: release_name
+        run: |
+          RELEASE_NAME="${GITHUB_REPOSITORY//\//-}"
+          echo "name=${RELEASE_NAME}" >> $GITHUB_OUTPUT
+
       - name: Upgrade chart
         run: |
-          helm upgrade --install ${{ github.repository }} ./ -n kube-system
+          helm upgrade --install ${{ steps.release_name.outputs.name }} ./ -n kube-system
