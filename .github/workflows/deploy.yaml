@@ -52,7 +52,9 @@ jobs:
         uses: azure/setup-helm@v4.2.0
 
       - name: Configure kubeconfig
-        run: echo "${{ secrets.KUBECONFIG }}" | base64 --decode > ~/.kube/config
+        run: |
+          mkdir ~/.kube
+          echo "${{ secrets.KUBECONFIG }}" | base64 --decode > ~/.kube/config
 
       - name: Upgrade chart
         run: |
