@@ -60,6 +60,7 @@ jobs:
         id: release_name
         run: |
           RELEASE_NAME="${GITHUB_REPOSITORY//\//-}"
+          RELEASE_NAME="${RELEASE_NAME,,}"
           echo "name=${RELEASE_NAME}" >> $GITHUB_OUTPUT
 
       - name: Upgrade chart
