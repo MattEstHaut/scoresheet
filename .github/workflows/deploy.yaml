@@ -1,4 +1,4 @@
-name: Create and publish a Docker image
+name: Deploy application
 
 on:
   push:
@@ -41,5 +41,20 @@ jobs:
         with:
           context: .
           push: true
+          tags: latest
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Helm
+        uses: azure/setup-helm@v4.2.0
+
+      - name: Configure kubeconfig
+        run: echo "${{ secrets.KUBECONFIG }}" | base64 --decode > ~/.kube/config
+
+      - name: Upgrade chart
+        run: |
+          helm upgrade --install ${{ github.repository }} ./ -n kube-system
